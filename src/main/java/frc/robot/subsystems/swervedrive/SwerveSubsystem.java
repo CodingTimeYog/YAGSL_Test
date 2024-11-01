@@ -64,11 +64,12 @@ public class SwerveSubsystem extends SubsystemBase
     //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
     //  The gear ratio is 6.75 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
+    // TODO Find wheel diameter in inches
     double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(4), 6.75);
-    System.out.println("\"conversionFactor\": {");
-    System.out.println("\t\"angle\": " + angleConversionFactor + ",");
-    System.out.println("\t\"drive\": " + driveConversionFactor);
-    System.out.println("}");
+    // System.out.println("\"conversionFactor\": {");
+    // System.out.println("\t\"angle\": " + angleConversionFactor + ",");
+    // System.out.println("\t\"drive\": " + driveConversionFactor);
+    // System.out.println("}");
 
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
@@ -217,22 +218,22 @@ public class SwerveSubsystem extends SubsystemBase
    * @param rotation     Rotation as a value between [-1, 1] converted to radians.
    * @return Drive command.
    */
-  public Command simDriveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier rotation)
-  {
-    // swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
-    return run(() -> {
-      // Make the robot move
-      driveFieldOriented(swerveDrive.swerveController.getTargetSpeeds(translationX.getAsDouble(),
-                                                                      translationY.getAsDouble(),
-                                                                      rotation.getAsDouble() * Math.PI,
-                                                                      swerveDrive.getOdometryHeading().getRadians(),
-                                                                      swerveDrive.getMaximumVelocity()));
-    });
-  }
+  // public Command simDriveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier rotation)
+  // {
+  //   // swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
+  //   return run(() -> {
+  //     // Make the robot move
+  //     driveFieldOriented(swerveDrive.swerveController.getTargetSpeeds(translationX.getAsDouble(),
+  //                                                                     translationY.getAsDouble(),
+  //                                                                     rotation.getAsDouble() * Math.PI,
+  //                                                                     swerveDrive.getOdometryHeading().getRadians(),
+  //                                                                     swerveDrive.getMaximumVelocity()));
+  //   });
+  // }
 
   /**
    * Command to characterize the robot drive motors using SysId
-   *
+   * This is a cool method that allows us to do SysID on drive motors
    * @return SysId Drive Command
    */
   public Command sysIdDriveMotorCommand()
