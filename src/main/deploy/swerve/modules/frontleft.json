@@ -5,7 +5,7 @@
   },
   "absoluteEncoderOffset": -58.271,
   "drive": {
-    "type": "falcon",
+    "type": "neo",
     "id": 1,
     "canbus": null
   },
